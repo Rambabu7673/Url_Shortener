@@ -11,12 +11,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(path.resolve(), "views"));
 
 mongoose
-  .connect(
-    "mongodb+srv://royrmbb_db_user:v530hnvk3yZH6Rd3@rambahu.lsby7rp.mongodb.net/",
-    {
-      dbName: "Rambabu",
-    }
-  )
+  .connect(process.env.MONGO_URI, {
+    dbName: "Rambabu",
+  })
   .then(() => console.log("MongoDB is Conneted..!"))
   .catch((err) => console.log(err));
 
