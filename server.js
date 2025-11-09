@@ -1,0 +1,35 @@
+import express from "express";
+import mongoose from "mongoose";
+import { shortUrl, getOriginalUrl } from "./controller/user.js";
+import path from "path";
+
+const app = express();
+
+app.use(express.static(path.join(path.resolve(),'public')))
+app.use(express.urlencoded({ extended: true }));
+
+mongoose
+  .connect(
+    "mongodb+srv://royrmbb_db_user:v530hnvk3yZH6Rd3@rambahu.lsby7rp.mongodb.net/",
+    {
+      dbName: "Rambabu",
+    }
+  )
+  .then(() => console.log("MongoDB is Conneted..!"))
+  .catch((err) => console.log(err));
+
+//  Rendering Ejs file
+app.get("/", (req, res) => {
+  res.render("index.ejs", { shortUrl: null });
+});
+
+// shorting url logic
+
+app.post("/short-Url", shortUrl);
+
+// Dynamic route and redireact original code
+
+app.get("/:shortCode", getOriginalUrl);
+
+const port = 2000;
+app.listen(port, () => console.log(`Server is runing on port = ${port}`));
