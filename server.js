@@ -31,5 +31,8 @@ app.post("/short-Url", shortUrl);
 
 app.get("/:shortCode", getOriginalUrl);
 
-const port = 2000;
-app.listen(port, () => console.log(`Server is runing on port = ${port}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Server Running on PORT:", PORT);
+});
+
